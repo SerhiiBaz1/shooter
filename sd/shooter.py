@@ -91,6 +91,7 @@ def add_crate():
 
 
 
+
 c =6
 ki = 2
 def add_enemy():
@@ -99,7 +100,14 @@ def add_enemy():
         y = randint(50, 150)
         enemy=Player(x,y,50,50,'ufo.png')
         enemy_list.append(enemy)
+
 add_enemy()
+def add_enem():
+    for el in range(10):
+        x = randint(50, 650)
+        y = randint(50, 150)
+        enemy=Player(x,y,50,50,'enemy2.png')
+        enemy_list.append(enemy)
 run = True
 s = 0
 l = 0
@@ -113,7 +121,7 @@ def loose(enemy,bullets,scr):
     global l
     global health
     for el in enemy:
-        if el.rect.colliderect(player.rect) or l>=100 or health<=0:
+        if   l>=100 or health<=0:
             enemy.clear()
             bullets.clear()
             astros.clear()
@@ -129,10 +137,11 @@ def won(enemy,bullets,scr):
     global move
     global s
     for el in enemy:
-        if s >= 25:
+        if s >= 80:
             enemy.clear()
             bullets.clear()
             astros.clear()
+            create_list.clear()
             move = 0
             chek_textw = True
     if chek_textw:
@@ -151,7 +160,8 @@ while run:
     if s >= 5 and not crate_added:
         add_crate()
         crate_added = True
-
+        if s >= 6:
+            crate_added = False
 
 
 
@@ -189,10 +199,21 @@ while run:
         scr.blit(cr.img_new, cr.rect)
         cr.update()
         if cr.rect.colliderect(player.rect):
-            cr.rect.y = -10
+            fon = pygame.transform.scale(pygame.image.load('galaxy2.jpg'), (W, H))
+            add_enem()
+
+
+
+
             create_list.clear()
 
-            s = 25
+
+
+
+
+
+
+
 
 
 
