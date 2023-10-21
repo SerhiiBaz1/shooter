@@ -5,9 +5,15 @@ W= 700
 H =550
 fon = pygame.transform.scale(pygame.image.load('galaxy.jpg'),(W,H))
 scr = pygame.display.set_mode((W,H))
+pygame.mixer.init()
 pygame.display.set_caption('Shooter')
-#sp = pygame.mixer.Sound('fire.ogg')
-#spase = pygame.mixer.Sound('space.ogg')
+#sp = pygame.mixer.music.load('fire1.ogg')
+#spase = pygame.mixer.Sound('fire.ogg')
+t = pygame.mixer.Sound('space.ogg')
+t.play(loops=1)
+m = pygame.mixer.Sound('fire1.ogg')
+y = pygame.mixer.Sound('kosmo.mp3')
+w = pygame.mixer.Sound('pobeda.mp3')
 fps = pygame.time.Clock()
 class Astro():
     def __init__(self,x,y,w,h,img):
@@ -144,6 +150,7 @@ def won(enemy,bullets,scr):
             create_list.clear()
             move = 0
             chek_textw = True
+            w.play(loops=1)
     if chek_textw:
         scr.blit(text, (W // 2 - 95, H // 2))
 move = 5
@@ -154,6 +161,7 @@ while run:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 bul_check = True
+                m.play()
                 #sp.play()
                 bul_list.append(Bullet(player.rect.x, player.rect.y, 10, 31, 'laser_bul.png'))
 
@@ -180,6 +188,7 @@ while run:
             if bul_check == True:
                 scr.blit(bul.img_new,(ell.rect.x + player.w//2,ell.rect.y))
                 ell.rect.y -=1
+
             if ell.rect.colliderect(el.rect):
                 el.rect.x = randint(50, 650)
                 el.rect.y = randint(50, 150)
@@ -200,6 +209,8 @@ while run:
         cr.update()
         if cr.rect.colliderect(player.rect):
             fon = pygame.transform.scale(pygame.image.load('galaxy2.jpg'), (W, H))
+            t.stop()
+            y.play(loops=1)
             add_enem()
 
 
